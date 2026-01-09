@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
+import { Analytics } from '@vercel/analytics/react'
 import './App.css'
 
 const TARGET_CELL_SIZE = 120
@@ -346,6 +347,7 @@ function App() {
       onPointerLeave={handlePointerLeave}
       onClick={handleClick}
     >
+      <Analytics />
       {isLoading && (
         <div className="preloader" role="status" aria-live="polite">
           <video
