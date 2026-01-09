@@ -1,10 +1,10 @@
 :root {
   --accent: #ff2aa1;
   --menu-accent: #ff6b00;
-  --grid-base: #060606;
-  --grid-cell: #0b0b0b;
-  --grid-hover: #151515;
-  --grid-line: rgba(255, 255, 255, 0.12);
+  --grid-base: #000000;
+  --grid-cell: #000000;
+  --grid-hover: #101010;
+  --grid-line: rgba(255, 255, 255, 0.05);
 }
 
 html,
@@ -41,7 +41,7 @@ body {
 
 .cell.flash {
   background: var(--flash-color, var(--accent));
-  box-shadow: 0 0 16px rgba(255, 42, 161, 0.2);
+  box-shadow: 0 0 18px var(--flash-color, var(--accent));
 }
 
 .content {
@@ -65,8 +65,10 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
-  top: -6px;
+  position: fixed;
+  top: 24px;
+  left: 5vw;
+  right: 5vw;
   z-index: 6;
 }
 
@@ -74,14 +76,13 @@ body {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  position: relative;
-  top: -48px;
-  left: 20px;
 }
 
 .brand-logo {
-  width: 200px;
-  height: auto;
+  width: auto;
+  height: 64px;
+  max-width: 240px;
+  object-fit: contain;
   display: block;
 }
 
@@ -99,7 +100,6 @@ body {
   gap: 5px;
   cursor: pointer;
   position: relative;
-  top: -48px;
 }
 
 .menu span {
@@ -351,7 +351,7 @@ body {
 }
 
 .info-section h2 {
-  font-size: clamp(30px, 4.4vw, 56px);
+  font-size: clamp(32px, 4.6vw, 60px);
   margin: 0;
 }
 
@@ -371,6 +371,7 @@ body {
 .info-pill {
   font-size: 16px;
   color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 0.04em;
   margin-bottom: 12px;
 }
 
@@ -382,19 +383,24 @@ body {
   position: absolute;
   inset: 0;
   pointer-events: auto;
+  transform: translateY(-36px);
 }
 
 .info-icon {
   position: absolute;
-  width: 72px;
-  height: 72px;
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.06);
+  width: 84px;
+  height: 84px;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #ffffff;
   font-weight: 600;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+  --tilt: -6deg;
+  animation: float 4.8s ease-in-out infinite;
+  will-change: transform;
 }
 
 .info-icon span {
@@ -406,28 +412,46 @@ body {
 
 .info-icon:nth-child(1) {
   left: 14%;
-  top: 32%;
-  background: #ff1f1f;
+  top: 12%;
+  background: radial-gradient(circle at 30% 30%, #ff7a7a, #ff1010 58%, #c00000 85%);
+  --tilt: -8deg;
+  animation-delay: -0.8s;
 }
 
 .info-icon:nth-child(2) {
-  right: 16%;
-  top: 20%;
+  right: 14%;
+  top: 6%;
   background: radial-gradient(circle at 30% 30%, #ffdf6b, #ff3c6f 45%, #9b4dff 70%);
+  --tilt: 6deg;
+  animation-delay: -2.2s;
 }
 
 .info-icon:nth-child(3) {
-  left: 20%;
-  bottom: 18%;
-  background: #20d7ff;
+  left: 18%;
+  bottom: 30%;
+  background: radial-gradient(circle at 30% 30%, #7af3ff, #12c7ff 55%, #0094c7 85%);
   color: #003b4d;
+  --tilt: -4deg;
+  animation-delay: -1.4s;
 }
 
 .info-icon:nth-child(4) {
-  right: 20%;
-  bottom: 20%;
-  background: #2d7bff;
+  right: 18%;
+  bottom: 30%;
+  background: radial-gradient(circle at 30% 30%, #6fc3ff, #2d7bff 60%, #0d4ab8 90%);
   text-transform: lowercase;
+  --tilt: 4deg;
+  animation-delay: -3s;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--tilt, -6deg));
+  }
+  50% {
+    transform: translateY(-28px) rotate(var(--tilt, -6deg));
+  }
 }
 
 .icon-youtube {
@@ -446,6 +470,263 @@ body {
 .icon-linkedin {
   font-size: 22px;
   font-weight: 700;
+}
+
+.about-section {
+  position: relative;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-section .section-inner {
+  min-height: 100vh;
+  justify-content: center;
+}
+
+.about-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 1.1fr) minmax(240px, 0.9fr);
+  gap: clamp(32px, 8vw, 120px);
+  align-items: center;
+  text-align: left;
+  padding-right: clamp(90px, 10vw, 160px);
+  transform: none;
+}
+
+.about-copy h2 {
+  line-height: 1.15;
+}
+
+.about-copy p {
+  margin: 14px 0 0;
+  font-size: clamp(15px, 1.6vw, 18px);
+  color: rgba(255, 255, 255, 0.55);
+  max-width: 520px;
+}
+
+.about-card {
+  justify-self: end;
+  width: min(320px, 60vw);
+  background: #1a1a1a;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.about-card-media {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #7a1a12, #c33c2b 60%, #aa2c20);
+  display: grid;
+  place-items: center;
+}
+
+.about-play {
+  width: 54px;
+  height: 36px;
+  border-radius: 12px;
+  background: #ff2c1c;
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  font-size: 18px;
+}
+
+.about-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.about-heart {
+  color: #ff4d7a;
+  font-size: 14px;
+}
+
+.about-card-title {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.about-card-tag {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.brands-section {
+  position: relative;
+  padding: 40px 0 20px;
+}
+
+.brands-layout {
+  width: min(980px, 86vw);
+  margin: 0 auto;
+  display: grid;
+  gap: 22px;
+  text-align: center;
+  padding-right: clamp(90px, 10vw, 160px);
+  transform: none;
+}
+
+.brands-title {
+  color: #ff2a64;
+  font-size: clamp(18px, 2.4vw, 24px);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.brands-rails {
+  display: grid;
+  gap: 16px;
+}
+
+.brands-rail {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  overflow: hidden;
+  padding: 12px 0;
+}
+
+.brands-track {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  width: max-content;
+  animation: brand-scroll 22s linear infinite;
+}
+
+.brands-track.reverse {
+  animation-direction: reverse;
+}
+
+.brand-tile {
+  min-width: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.brand-logo-alpha {
+  width: 40px;
+  padding: 0;
+  border-radius: 10px;
+  background: rgba(104, 66, 255, 0.2);
+  color: #7c6dff;
+}
+
+.brand-logo-benq {
+  background: #5b2f8f;
+  color: #f3f3ff;
+  font-weight: 700;
+}
+
+.brand-logo-b {
+  width: 38px;
+  padding: 0;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #111111;
+}
+
+.brand-logo-loop {
+  width: 44px;
+  padding: 0;
+  border-radius: 12px;
+  background: rgba(96, 214, 255, 0.16);
+  color: #63d6ff;
+  font-size: 20px;
+}
+
+.brand-logo-do {
+  color: #5aa2ff;
+  font-size: 14px;
+  background: rgba(58, 106, 255, 0.08);
+}
+
+.brand-logo-fiverr {
+  color: #d6d6d6;
+  font-size: 16px;
+  background: transparent;
+}
+
+.brand-logo-ibm {
+  color: #4c7dff;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  background: transparent;
+}
+
+.brand-logo-beauty {
+  font-size: 20px;
+  letter-spacing: 0.12em;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.brand-logo-adobe {
+  width: 40px;
+  padding: 0;
+  border-radius: 10px;
+  background: #e5392f;
+  color: #ffffff;
+}
+
+.brand-logo-appsumo {
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  background: transparent;
+}
+
+.brand-logo-stock {
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  background: transparent;
+}
+
+.brand-logo-canva {
+  background: radial-gradient(circle at 30% 30%, #6ef0ff, #3b6cff 60%, #6a3cff);
+  color: #0f0f0f;
+  font-weight: 700;
+}
+
+.brand-logo-cred {
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  background: transparent;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+@keyframes brand-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 @media (max-width: 720px) {
@@ -469,6 +750,32 @@ body {
 
   .menu-panel button {
     font-size: 20px;
+  }
+
+  .about-layout {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    padding-right: 0;
+  }
+
+  .about-card {
+    justify-self: center;
+  }
+
+  .brands-layout {
+    width: min(520px, 92vw);
+    padding-right: 0;
+  }
+
+  .brand-tile {
+    min-width: 90px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brands-track {
+    animation: none;
   }
 }
 

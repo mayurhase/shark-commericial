@@ -6,8 +6,8 @@ const TARGET_CELL_SIZE = 120
 const BASE_DELAY = 50
 const RING_BEAT = 70
 const FLASH_DURATION = 200
-const ACCENT_COLOR = '#ff2aa1'
-const SECTIONS = ['home', 'about', 'brands', 'creators', 'contact']
+const NEON_COLORS = ['#00f0ff', '#ff2aa1', '#7cff00', '#ffd400', '#8a2bff', '#ff6b00']
+const SECTIONS = ['home', 'story', 'about', 'brands', 'creators', 'contact']
 
 function App() {
   const timeoutsRef = useRef([])
@@ -31,6 +31,25 @@ function App() {
   const [reduceMotion, setReduceMotion] = useState(false)
   const [inTransition, setInTransition] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const brandRows = [
+    [
+      { label: 'A', className: 'brand-logo brand-logo-alpha' },
+      { label: 'BenQ', className: 'brand-logo brand-logo-benq' },
+      { label: 'b', className: 'brand-logo brand-logo-b' },
+      { label: '∞', className: 'brand-logo brand-logo-loop' },
+      { label: 'DigitalOcean', className: 'brand-logo brand-logo-do' },
+      { label: 'fiverr.', className: 'brand-logo brand-logo-fiverr' },
+      { label: 'IBM', className: 'brand-logo brand-logo-ibm' },
+    ],
+    [
+      { label: 'beauty', className: 'brand-logo brand-logo-beauty' },
+      { label: 'A', className: 'brand-logo brand-logo-adobe' },
+      { label: 'AppSumo', className: 'brand-logo brand-logo-appsumo' },
+      { label: 'stock', className: 'brand-logo brand-logo-stock' },
+      { label: 'Canva', className: 'brand-logo brand-logo-canva' },
+      { label: 'CRED', className: 'brand-logo brand-logo-cred' },
+    ],
+  ]
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -154,27 +173,7 @@ function App() {
     return `rgba(${r}, ${g}, ${b}, ${alpha})`
   }
 
-  const triggerRing = (keys, delay, colorMap) => {
-    schedule(() => {
-      setFlashes((prev) => {
-        const next = { ...prev }
-        keys.forEach((key) => {
-          next[key] = colorMap[key]
-        })
-        return next
-      })
-
-      schedule(() => {
-        setFlashes((prev) => {
-          const next = { ...prev }
-          keys.forEach((key) => {
-            delete next[key]
-          })
-          return next
-        })
-      }, FLASH_DURATION)
-    }, delay)
-  }
+  const pickRandomColor = () => NEON_COLORS[Math.floor(Math.random() * NEON_COLORS.length)]
 
   const handlePointerMove = (event) => {
     if (event.target.closest?.('.content-block')) return
@@ -197,33 +196,43 @@ function App() {
     const { cols, rows, cellWidth, cellHeight } = grid
     if (!cols || !rows) return
 
-    const col = Math.floor(event.clientX / cellWidth)
-    const row = Math.floor(event.clientY / cellHeight)
+    const clickX = event.clientX
+    const clickY = event.clientY
+    const col = Math.floor(clickX / cellWidth)
+    const row = Math.floor(clickY / cellHeight)
     if (col < 0 || row < 0 || col >= cols || row >= rows) return
 
     clearTimers()
     setFlashes({})
 
-    const rings = new Map()
-    const colorMap = {}
+    const baseColor = pickRandomColor()
+    const ringStep = Math.min(cellWidth, cellHeight)
+    const waveSpeed = ringStep / RING_BEAT
 
     for (let r = 0; r < rows; r += 1) {
       for (let c = 0; c < cols; c += 1) {
-        const distance = Math.hypot(r - row, c - col)
-        const ring = Math.floor(distance)
-        const fractional = distance - ring
-        const alpha = Math.max(0.08, 0.45 - ring * 0.05 - fractional * 0.1)
-        colorMap[`${r}-${c}`] = hexToRgba(ACCENT_COLOR, alpha)
-        if (prefersReduced.current && ring !== 0) continue
-        if (!rings.has(ring)) rings.set(ring, [])
-        rings.get(ring).push(`${r}-${c}`)
+        const centerX = (c + 0.5) * cellWidth
+        const centerY = (r + 0.5) * cellHeight
+        const distance = Math.hypot(centerX - clickX, centerY - clickY)
+        const ringIndex = distance / ringStep
+        if (prefersReduced.current && ringIndex >= 1) continue
+        const alpha = Math.max(0.08, 0.65 - ringIndex * 0.06)
+        const color = hexToRgba(baseColor, alpha)
+        const delay = BASE_DELAY + distance / waveSpeed
+        const key = `${r}-${c}`
+
+        schedule(() => {
+          setFlashes((prev) => ({ ...prev, [key]: color }))
+          schedule(() => {
+            setFlashes((prev) => {
+              const next = { ...prev }
+              delete next[key]
+              return next
+            })
+          }, FLASH_DURATION)
+        }, delay)
       }
     }
-
-    rings.forEach((keys, ring) => {
-      const delay = ring === 0 ? 0 : BASE_DELAY + (ring - 1) * RING_BEAT
-      triggerRing(keys, delay, colorMap)
-    })
   }
 
   const totalCells = grid.rows * grid.cols
@@ -468,7 +477,7 @@ function App() {
             </div>
           </section>
 
-          <section id="about" className="snap-section info-section info-hero" ref={(el) => setSectionRef(1, el)}>
+          <section id="story" className="snap-section info-section info-hero" ref={(el) => setSectionRef(1, el)}>
             <div className="section-inner panel-content">
               <div className="info-pill content-block">SocialTag began as a talent-first agency.</div>
               <div className="info-copy content-block">
@@ -499,21 +508,57 @@ function App() {
             </div>
           </section>
 
-          <section id="brands" className="snap-section info-section" ref={(el) => setSectionRef(2, el)}>
-            <div className="section-inner panel-content content-block">
-              <h2>Brands</h2>
-              <p>Partnering with ambitious brands ready to lead their category.</p>
+          <section id="about" className="snap-section info-section about-section" ref={(el) => setSectionRef(2, el)}>
+            <div className="section-inner panel-content about-layout">
+              <div className="about-copy content-block">
+                <h2>Our mission is to shape narratives that spark movements.</h2>
+                <p>We believe creators are the new media. And we know how to use that power to grow businesses that matter.</p>
+              </div>
+              <div className="about-card content-block" aria-hidden>
+                <div className="about-card-media">
+                  <div className="about-play">▶</div>
+                </div>
+                <div className="about-card-meta">
+                  <div className="about-heart">❤</div>
+                  <span>1.1M</span>
+                </div>
+                <div className="about-card-title">Reach masses</div>
+                <div className="about-card-tag">#socialtag</div>
+              </div>
             </div>
           </section>
 
-          <section id="creators" className="snap-section info-section" ref={(el) => setSectionRef(3, el)}>
+          <section id="brands" className="snap-section info-section brands-section" ref={(el) => setSectionRef(3, el)}>
+            <div className="section-inner panel-content brands-layout">
+              <div className="brands-title content-block">Brands we&apos;ve worked with</div>
+              <div className="brands-rails content-block">
+                {brandRows.map((row, index) => {
+                  const items = row.concat(row)
+                  const trackClass = `brands-track${index === 1 ? ' reverse' : ''}`
+                  return (
+                    <div key={`row-${index}`} className="brands-rail">
+                      <div className={trackClass}>
+                        {items.map((brand, brandIndex) => (
+                          <div key={`${brand.label}-${brandIndex}`} className="brand-tile">
+                            <span className={brand.className}>{brand.label}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </section>
+
+          <section id="creators" className="snap-section info-section" ref={(el) => setSectionRef(4, el)}>
             <div className="section-inner panel-content content-block">
               <h2>Creators</h2>
               <p>Curated talent networks, real community pull, and platform-native storytelling.</p>
             </div>
           </section>
 
-          <section id="contact" className="snap-section info-section" ref={(el) => setSectionRef(4, el)}>
+          <section id="contact" className="snap-section info-section" ref={(el) => setSectionRef(5, el)}>
             <div className="section-inner panel-content content-block">
               <h2>Contact</h2>
               <p>Let&apos;s build something memorable together.</p>
