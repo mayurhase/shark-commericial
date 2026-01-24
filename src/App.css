@@ -6,6 +6,14 @@
   --grid-cell: #000000;
   --grid-hover: #101010;
   --grid-line: rgba(255, 255, 255, 0.05);
+  --text: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.7);
+  --text-soft: rgba(255, 255, 255, 0.55);
+  --card-bg: rgba(255, 255, 255, 0.04);
+  --card-border: rgba(255, 255, 255, 0.12);
+  --section-pad-y: clamp(72px, 10vh, 140px);
+  --section-pad-x: clamp(18px, 5vw, 72px);
+  --max-content-width: 1200px;
 }
 
 *,
@@ -20,6 +28,8 @@ body {
   overflow: hidden;
   overscroll-behavior: none;
   cursor: url('/assets/arrow.png') 0 0, auto;
+  color: var(--text);
+  background: var(--grid-base);
 }
 
 .app {
@@ -69,7 +79,7 @@ select {
   position: relative;
   z-index: 1;
   min-height: 100vh;
-  padding: 28px 5vw 48px;
+  padding: 0;
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -88,8 +98,8 @@ select {
   align-items: center;
   position: fixed;
   top: 24px;
-  left: 5vw;
-  right: 5vw;
+  left: var(--section-pad-x);
+  right: var(--section-pad-x);
   z-index: 6;
 }
 
@@ -237,13 +247,14 @@ select {
 }
 
 .hero {
-  min-height: calc(100vh - 80px);
-  padding-top: 120px;
+  height: 100vh;
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 18px;
   align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 0 var(--section-pad-x);
 }
 
 .section-inner {
@@ -254,6 +265,9 @@ select {
   align-items: center;
   gap: 18px;
   opacity: 1;
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  text-align: center;
 }
 
 .hero-copy {
@@ -270,7 +284,7 @@ select {
 
 .hero p {
   font-size: clamp(16px, 2.1vw, 26px);
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-muted);
   margin: 0;
 }
 
@@ -289,16 +303,16 @@ select {
 
 .section-label {
   position: fixed;
-  right: 4vw;
+  right: var(--section-pad-x);
   bottom: 6vh;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-soft);
   font-size: 14px;
   text-transform: capitalize;
 }
 
 .section-nav {
   position: fixed;
-  right: 4vw;
+  right: var(--section-pad-x);
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -341,10 +355,19 @@ select {
   inset: 0;
   display: none;
   box-sizing: border-box;
+  padding: var(--section-pad-y) var(--section-pad-x);
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.snap-section,
+.snap-section * {
+  text-align: center;
 }
 
 .scroll-wrap .snap-section:first-child {
-  display: block;
+  display: flex;
 }
 
 .preloader {
@@ -368,8 +391,10 @@ select {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 16px;
-  padding: 80px 0;
+  gap: clamp(16px, 2vw, 24px);
+  padding: 0;
+  align-items: center;
+  text-align: center;
 }
 
 .info-section h2 {
@@ -378,8 +403,8 @@ select {
 }
 
 .info-section p {
-  font-size: clamp(16px, 2.2vw, 22px);
-  color: rgba(255, 255, 255, 0.6);
+  font-size: clamp(16px, 2vw, 20px);
+  color: var(--text-soft);
   max-width: 520px;
   margin: 0;
 }
@@ -390,9 +415,20 @@ select {
   align-items: center;
 }
 
+.info-hero .section-inner {
+  align-items: center;
+  justify-content: center;
+}
+
+.info-hero .info-copy {
+  text-align: center;
+  align-items: center;
+  width: 100%;
+}
+
 .info-pill {
   font-size: 16px;
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--text-soft);
   letter-spacing: 0.04em;
   margin-bottom: 12px;
 }
@@ -401,25 +437,47 @@ select {
   line-height: 1.15;
 }
 
+.info-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.info-copy h1 {
+  font-size: clamp(16px, 2vw, 28px);
+  line-height: 1.2;
+  text-align: center;
+}
+
+.info-hero h1,
+.info-hero p,
+.info-hero .info-pill {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .info-icons {
   position: absolute;
   inset: 0;
   pointer-events: auto;
-  transform: translateY(-36px);
+  transform: translateY(80px);
 }
 
 .info-icon {
   position: absolute;
-  width: 84px;
-  height: 84px;
+  width: 140px;
+  height: 140px;
   border-radius: 26px;
-  background: rgba(255, 255, 255, 0.08);
+  background: transparent;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #ffffff;
   font-weight: 600;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+  box-shadow: none;
   --tilt: -6deg;
   animation: float 4.8s ease-in-out infinite;
   will-change: transform;
@@ -432,10 +490,16 @@ select {
   font-size: 26px;
 }
 
+ .info-icon img {
+  width: 96px;
+  height: 96px;
+  display: block;
+  filter: none;
+ }
+
 .info-icon:nth-child(1) {
   left: 14%;
   top: 12%;
-  background: radial-gradient(circle at 30% 30%, #ff7a7a, #ff1010 58%, #c00000 85%);
   --tilt: -8deg;
   animation-delay: -0.8s;
 }
@@ -443,7 +507,6 @@ select {
 .info-icon:nth-child(2) {
   right: 14%;
   top: 6%;
-  background: radial-gradient(circle at 30% 30%, #ffdf6b, #ff3c6f 45%, #9b4dff 70%);
   --tilt: 6deg;
   animation-delay: -2.2s;
 }
@@ -451,7 +514,6 @@ select {
 .info-icon:nth-child(3) {
   left: 18%;
   bottom: 30%;
-  background: radial-gradient(circle at 30% 30%, #7af3ff, #12c7ff 55%, #0094c7 85%);
   color: #003b4d;
   --tilt: -4deg;
   animation-delay: -1.4s;
@@ -460,7 +522,6 @@ select {
 .info-icon:nth-child(4) {
   right: 18%;
   bottom: 30%;
-  background: radial-gradient(circle at 30% 30%, #6fc3ff, #2d7bff 60%, #0d4ab8 90%);
   text-transform: lowercase;
   --tilt: 4deg;
   animation-delay: -3s;
@@ -512,26 +573,35 @@ select {
   grid-template-columns: minmax(280px, 1.1fr) minmax(240px, 0.9fr);
   gap: clamp(32px, 8vw, 120px);
   align-items: center;
-  text-align: left;
-  padding-right: clamp(90px, 10vw, 160px);
+  text-align: center;
+  padding: 0;
   transform: none;
+  justify-items: center;
 }
 
 .about-copy h2 {
   line-height: 1.15;
 }
 
+.about-copy {
+  text-align: center;
+  align-items: center;
+}
+
 .about-copy p {
   margin: 14px 0 0;
   font-size: clamp(15px, 1.6vw, 18px);
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--text-soft);
   max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .about-card {
-  justify-self: end;
+  justify-self: center;
   width: min(320px, 60vw);
-  background: #1a1a1a;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 16px;
   padding: 18px;
   box-shadow: 0 18px 36px rgba(0, 0, 0, 0.5);
@@ -585,16 +655,16 @@ select {
 
 .brands-section {
   position: relative;
-  padding: 40px 0 20px;
+  padding: 0;
 }
 
 .brands-layout {
-  width: min(980px, 86vw);
+  width: min(980px, 100%);
   margin: 0 auto;
   display: grid;
   gap: 22px;
   text-align: center;
-  padding-right: clamp(90px, 10vw, 160px);
+  padding: 0;
   transform: none;
 }
 
@@ -611,8 +681,8 @@ select {
 }
 
 .brands-rail {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--card-border);
   border-radius: 14px;
   overflow: hidden;
   padding: 12px 0;
@@ -753,7 +823,7 @@ select {
 
 @media (max-width: 720px) {
   .hero {
-    padding-top: 80px;
+    min-height: 100vh;
   }
 
   .scroll-indicator {
@@ -778,7 +848,7 @@ select {
     grid-template-columns: 1fr;
     justify-items: center;
     text-align: center;
-    padding-right: 0;
+    padding: 0;
   }
 
   .about-card {
@@ -787,7 +857,7 @@ select {
 
   .brands-layout {
     width: min(520px, 92vw);
-    padding-right: 0;
+    padding: 0;
   }
 
   .brand-tile {
@@ -936,15 +1006,15 @@ select {
 
 /* Gallery Section Styles */
 .gallery-section {
-  padding: 3rem 0;
+  padding: 0;
   position: relative;
   z-index: 2;
 }
 
 .gallery-container {
-  max-width: 1300px;
+  max-width: var(--max-content-width);
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0;
 }
 
 .gallery-header-wrapper {
@@ -971,7 +1041,7 @@ select {
   right: 0;
   top: 0;
   font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.65);
+  color: var(--text-soft);
   font-weight: 400;
   letter-spacing: 0.5px;
 }
@@ -1090,7 +1160,7 @@ select {
 
 @media (max-width: 1024px) {
   .gallery-container {
-    padding: 0 1.5rem;
+    padding: 0;
   }
 
   .gallery-grid {
@@ -1109,7 +1179,7 @@ select {
 /* Mobile - Single Row Horizontal Scroll */
 @media (max-width: 768px) {
   .gallery-container {
-    padding: 0 1rem;
+    padding: 0;
   }
 
   .gallery-header-wrapper {
@@ -1142,7 +1212,7 @@ select {
 /* Small Mobile - Slightly Smaller Tiles */
 @media (max-width: 480px) {
   .gallery-container {
-    padding: 0 0.75rem;
+    padding: 0;
   }
 
   .gallery-title {
@@ -1164,7 +1234,7 @@ select {
 
 /* Why Social Tag Section */
 .why-section {
-  padding: 4rem 0;
+  padding: 0;
   position: relative;
   z-index: 2;
 }
@@ -1174,7 +1244,7 @@ select {
   font-weight: 700;
   color: var(--section-heading);
   text-align: center;
-  margin: 0 0 3rem 0;
+  margin: 0 0 2.5rem 0;
   letter-spacing: 0.5px;
 }
 
@@ -1182,14 +1252,16 @@ select {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
-  max-width: 1100px;
+  max-width: var(--max-content-width);
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0;
+  justify-items: center;
+  text-align: center;
 }
 
 .why-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 20px;
   padding: 2.5rem 1.75rem;
   display: flex;
@@ -1234,7 +1306,7 @@ select {
 
 .why-card-text {
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.65);
+  color: var(--text-soft);
   line-height: 1.6;
   margin: 0;
   letter-spacing: 0.3px;
@@ -1245,7 +1317,7 @@ select {
   .why-cards-container {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
-    padding: 0 1.5rem;
+    padding: 0;
   }
 
   .why-card {
@@ -1263,11 +1335,11 @@ select {
   .why-cards-container {
     grid-template-columns: 1fr;
     gap: 1.5rem;
-    padding: 0 1rem;
+    padding: 0;
   }
 
   .why-section {
-    padding: 3rem 0;
+    padding: 0;
   }
 
   .why-title {
@@ -1304,14 +1376,14 @@ select {
 
 .contact-subtitle {
   font-size: 1.3rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text-muted);
   margin: 0 0 1.5rem 0;
   font-weight: 500;
 }
 
 .contact-description {
   font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.65);
+  color: var(--text-soft);
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
@@ -1321,10 +1393,12 @@ select {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 3.5rem;
-  max-width: 1200px;
+  max-width: var(--max-content-width);
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0;
   width: 100%;
+  justify-items: center;
+  text-align: center;
 }
 
 .contact-column {
@@ -1346,12 +1420,13 @@ select {
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   padding: 2.5rem;
   border-radius: 8px;
   box-shadow: 0 8px 32px rgba(255, 42, 161, 0.05);
   width: 100%;
+  align-items: center;
 }
 
 .contact-info-item {
@@ -1362,7 +1437,7 @@ select {
 
 .contact-info-label {
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.55);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-weight: 600;
@@ -1370,7 +1445,7 @@ select {
 
 .contact-info-value {
   font-size: 1.05rem;
-  color: #ffffff;
+  color: var(--text);
   text-decoration: none;
   transition: color 200ms ease;
   word-break: break-word;
@@ -1385,6 +1460,7 @@ select {
   font-size: 0.95rem;
   line-height: 1.7;
   font-weight: 400;
+  color: var(--text-muted);
 }
 
 .contact-map-link {
@@ -1409,12 +1485,13 @@ select {
   display: flex;
   flex-direction: column;
   gap: 1.75rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   padding: 2.5rem;
   border-radius: 8px;
   box-shadow: 0 8px 32px rgba(255, 42, 161, 0.05);
   width: 100%;
+  align-items: center;
 }
 
 .form-field {
@@ -1433,7 +1510,7 @@ select {
 .contact-form input {
   padding: 0.875rem 1rem;
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--card-border);
   border-radius: 4px;
   color: #ffffff;
   font-size: 1rem;
@@ -1488,7 +1565,7 @@ select {
   .contact-content-wrapper {
     grid-template-columns: 1fr;
     gap: 3rem;
-    padding: 0 2rem;
+    padding: 0;
   }
 
   .contact-header {
@@ -1503,7 +1580,7 @@ select {
 @media (max-width: 768px) {
   .contact-header {
     margin-bottom: 2.5rem;
-    padding: 0 1.5rem;
+    padding: 0;
   }
 
   .contact-title {
@@ -1520,7 +1597,7 @@ select {
 
   .contact-content-wrapper {
     gap: 2.5rem;
-    padding: 0 1.5rem;
+    padding: 0;
     max-width: 100%;
   }
 

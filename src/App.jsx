@@ -7,7 +7,7 @@ const BASE_DELAY = 50
 const RING_BEAT = 70
 const FLASH_DURATION = 200
 const NEON_COLORS = ['#00f0ff', '#ff2aa1', '#7cff00', '#ffd400', '#8a2bff', '#ff6b00']
-const SECTIONS = ['home', 'story', 'about', 'why', 'brands', 'gallery', 'contact']
+const SECTIONS = ['home', 'about', 'services', 'why', 'brands', 'gallery', 'contact']
 
 const TALENT_DATA = [
   { id: 1, image: 'EDBCFD2A-329E-40F6-96DC-7CB7808324E5.JPG.jpeg', name: 'Raj Shaman' },
@@ -110,14 +110,14 @@ function App() {
       const outDown = gsap.timeline({ paused: true })
       const outUp = gsap.timeline({ paused: true })
 
-      inDown.set(section, { display: 'block' })
+      inDown.set(section, { display: 'flex' })
       inDown.fromTo(
         content,
         { opacity: 0, y: 100 },
         { opacity: 1, y: 0, duration: 0.9, ease: 'power2.inOut' },
       )
 
-      inUp.set(section, { display: 'block' })
+      inUp.set(section, { display: 'flex' })
       inUp.fromTo(
         content,
         { opacity: 0, y: -100 },
@@ -153,7 +153,7 @@ function App() {
       if (!section) return
       const content = section.querySelector('.panel-content') || section
       if (index === currentSectionIndex) {
-        gsap.set(section, { display: 'block' })
+        gsap.set(section, { display: 'flex' })
         gsap.set(content, { opacity: 1, y: 0 })
       } else {
         gsap.set(section, { display: 'none' })
@@ -495,10 +495,10 @@ function App() {
             </p>
           </section>
 
-          <section id="story" className="snap-section info-section info-hero" ref={(el) => setSectionRef(1, el)}>
+          <section id="about" className="snap-section info-section info-hero" ref={(el) => setSectionRef(1, el)}>
             <div className="section-inner panel-content">
               <div className="info-pill content-block">Ideas That Bite. Marketing That Converts</div>
-              <div className="info-copy content-block">
+              <div className="info-copy content-block" style={{ textAlign: 'center', alignItems: 'center' }}>
                 <h1>
                   We help local and growing businesses build strong brands through social media, branding, video production, and digital advertising.
                   <br />
@@ -510,22 +510,22 @@ function App() {
               </div>
               <div className="info-icons content-block">
                 <div className="info-icon" aria-hidden>
-                  <span className="icon-youtube">YT</span>
+                  <img src="/assets/youtube.png" alt="YouTube" />
                 </div>
                 <div className="info-icon" aria-hidden>
-                  <span className="icon-instagram">IG</span>
+                  <img src="/assets/instagram.png" alt="Instagram" />
                 </div>
                 <div className="info-icon" aria-hidden>
-                  <span className="icon-twitter">X</span>
+                  <img src="/assets/twitter.png" alt="X" />
                 </div>
                 <div className="info-icon" aria-hidden>
-                  <span className="icon-linkedin">in</span>
+                  <img src="/assets/linkedin.png" alt="LinkedIn" />
                 </div>
               </div>
             </div>
           </section>
 
-          <section id="about" className="snap-section info-section about-section" ref={(el) => setSectionRef(2, el)}>
+          <section id="services" className="snap-section info-section about-section" ref={(el) => setSectionRef(2, el)}>
             <div className="section-inner panel-content about-layout">
               <div className="about-copy content-block">
                 <h2>Our mission is to shape narratives that spark movements.</h2>
