@@ -7,7 +7,20 @@ const BASE_DELAY = 50
 const RING_BEAT = 70
 const FLASH_DURATION = 200
 const NEON_COLORS = ['#00f0ff', '#ff2aa1', '#7cff00', '#ffd400', '#8a2bff', '#ff6b00']
-const SECTIONS = ['home', 'story', 'about', 'brands', 'creators', 'contact']
+const SECTIONS = ['home', 'story', 'about', 'why', 'brands', 'gallery', 'contact']
+
+const TALENT_DATA = [
+  { id: 1, image: 'EDBCFD2A-329E-40F6-96DC-7CB7808324E5.JPG.jpeg', name: 'Raj Shaman' },
+  { id: 2, image: 'IMG_0460.JPG.jpeg', name: 'Think School' },
+  { id: 3, image: 'IMG_0690.JPG.jpeg', name: 'Anik' },
+  { id: 4, image: 'IMG_0738.JPG.jpeg', name: 'Ansh' },
+  { id: 5, image: 'IMG_1180.JPG.jpeg', name: 'Vaibhav' },
+  { id: 6, image: 'IMG_1196.JPG.jpeg', name: 'Varun' },
+  { id: 7, image: 'IMG_1648.JPG.jpeg', name: 'saptarshi' },
+  { id: 8, image: 'IMG_1871.JPG.jpeg', name: 'Nikhil' },
+  { id: 9, image: 'IMG_1876.JPG.jpeg', name: 'Gemini' },
+  { id: 10, image: 'IMG_1877.JPG.jpeg', name: '100xEngineers' },
+]
 
 function App() {
   const timeoutsRef = useRef([])
@@ -17,6 +30,7 @@ function App() {
   const inTransitionRef = useRef(false)
   const touchStartY = useRef(0)
   const touchEndY = useRef(0)
+  const galleryCarouselRef = useRef(null)
 
   const [grid, setGrid] = useState({
     rows: 0,
@@ -348,6 +362,17 @@ function App() {
     setSection(nextIndex)
   }
 
+  const scrollGalleryCarousel = (direction) => {
+    if (!galleryCarouselRef.current) return
+    const carousel = galleryCarouselRef.current
+    const scrollAmount = 280
+    if (direction === 'left') {
+      carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' })
+    } else {
+      carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+    }
+  }
+
   return (
     <div
       className={`app${reduceMotion ? ' reduced' : ''}${isLoading ? ' loading' : ''}`}
@@ -399,7 +424,7 @@ function App() {
       <div className="content">
         <header className="top-bar">
           <div className="brand content-block">
-            <img className="brand-logo" src="/assets/shark%20logo.png" alt="Shark logo" />
+            <img className="brand-logo" src="/assets/shark%20logo.png" alt="Shark logo" style={{ width: '150px', height: 'auto' }} />
           </div>
           <button
             className={`menu content-block${menuOpen ? ' open' : ''}`}
@@ -462,34 +487,26 @@ function App() {
 
         <div className="scroll-wrap">
           <section id="home" className="hero snap-section" ref={(el) => setSectionRef(0, el)}>
-            <div className="section-inner panel-content">
-              <div className="hero-copy content-block">
-                <h1>
-                  We&apos;re not an
-                  <br />
-                  agency
-                </h1>
-                <p>We&apos;re the architects of the new attention economy.</p>
-              </div>
-              <button className="cta content-block" type="button">
-                Build Your Narrative
-              </button>
-            </div>
+            <h1 >
+              Shark Commercial
+            </h1>
+            <p style={{ color: 'orange' }}>
+              Creating opportunity for all — by turning attention into leverage.
+            </p>
           </section>
 
           <section id="story" className="snap-section info-section info-hero" ref={(el) => setSectionRef(1, el)}>
             <div className="section-inner panel-content">
-              <div className="info-pill content-block">SocialTag began as a talent-first agency.</div>
+              <div className="info-pill content-block">Ideas That Bite. Marketing That Converts</div>
               <div className="info-copy content-block">
-                <h2>
-                  Evolving into a media
+                <h1>
+                  We help local and growing businesses build strong brands through social media, branding, video production, and digital advertising.
                   <br />
-                  powerhouse partnering
+                  Founded in 2020 by Tushar Puri, we bring 6+ years of industry experience with one clear focus
                   <br />
-                  with creators, companies,
-                  <br />
-                  and capital.
-                </h2>
+                   — results that grow your business with creators, companies.                                   
+                 
+                 </h1>
               </div>
               <div className="info-icons content-block">
                 <div className="info-icon" aria-hidden>
@@ -528,7 +545,33 @@ function App() {
             </div>
           </section>
 
-          <section id="brands" className="snap-section info-section brands-section" ref={(el) => setSectionRef(3, el)}>
+          <section id="why" className="snap-section info-section why-section" ref={(el) => setSectionRef(3, el)}>
+            <div className="section-inner panel-content">
+              <h2 className="why-title">Why Shark Commercial </h2>
+              <div className="why-cards-container">
+                <div className="why-card">
+                  <div className="why-card-icon">🔗</div>
+                  <h3 className="why-card-title">Built on<br />Trust</h3>
+                  <div className="why-card-divider" />
+                  <p className="why-card-text">We earned our reputation before we ever optimized for it. Referrals. Relationships. Results. That's how we grow.</p>
+                </div>
+                <div className="why-card">
+                  <div className="why-card-icon">🎨</div>
+                  <h3 className="why-card-title">Industry<br />Fluency</h3>
+                  <div className="why-card-divider" />
+                  <p className="why-card-text">From SaaS funnels to pre-IPO narratives we get your business, not just your Instagram handle.</p>
+                </div>
+                <div className="why-card">
+                  <div className="why-card-icon">📊</div>
+                  <h3 className="why-card-title">Long Term<br />Relevance</h3>
+                  <div className="why-card-divider" />
+                  <p className="why-card-text">We turn attention into action with content that aligns with your long-term brand story not just a 24-hour spike.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="brands" className="snap-section info-section brands-section" ref={(el) => setSectionRef(4, el)}>
             <div className="section-inner panel-content brands-layout">
               <div className="brands-title content-block">Brands we&apos;ve worked with</div>
               <div className="brands-rails content-block">
@@ -551,17 +594,107 @@ function App() {
             </div>
           </section>
 
-          <section id="creators" className="snap-section info-section" ref={(el) => setSectionRef(4, el)}>
-            <div className="section-inner panel-content content-block">
-              <h2>Creators</h2>
-              <p>Curated talent networks, real community pull, and platform-native storytelling.</p>
+          <section id="gallery" className="snap-section info-section gallery-section" ref={(el) => setSectionRef(5, el)}>
+            <div className="section-inner panel-content">
+              <div className="gallery-container">
+                <div className="gallery-header-wrapper">
+                  <h2 className="gallery-title">GALLERY</h2>
+                  <div className="gallery-next-wrapper">
+                    <span className="gallery-next-label">Next</span>
+                    <img 
+                      src="/assets/arrow.png" 
+                      alt="scroll right" 
+                      className="arrow-indicator gallery-arrow"
+                      width="24"
+                      height="24"
+                      loading="eager"
+                    />
+                  </div>
+                </div>
+                <div className="gallery-carousel-wrapper" ref={galleryCarouselRef}>
+                  <div className="gallery-grid">
+                    {TALENT_DATA.map((talent, index) => (
+                      <div key={talent.id} className="gallery-tile">
+                        <img 
+                          src={`/assets/gallery/${talent.image}`}
+                          alt={`${talent.name} - Talent Network`}
+                          className="gallery-image"
+                          width="220"
+                          height="220"
+                          loading={index < 5 ? "eager" : "lazy"}
+                          decoding="async"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
 
-          <section id="contact" className="snap-section info-section" ref={(el) => setSectionRef(5, el)}>
-            <div className="section-inner panel-content content-block">
-              <h2>Contact</h2>
-              <p>Let&apos;s build something memorable together.</p>
+          <section id="contact" className="snap-section info-section" ref={(el) => setSectionRef(6, el)}>
+            <div className="section-inner panel-content">
+              <div className="contact-header">
+                <h2 className="contact-title">Contact Us</h2>
+                <p className="contact-subtitle">Get in Touch</p>
+               </div>
+              <div className="contact-content-wrapper">
+                {/* Left Column - Contact Details */}
+                <div className="contact-column contact-details-column">
+                  <div className="contact-details-card">
+                    <div className="contact-info-item">
+                      <label className="contact-info-label">Office Phone</label>
+                      <a href="tel:+919175713150" className="contact-info-value">9175713150</a>
+                    </div>
+
+                    <div className="contact-info-item">
+                      <label className="contact-info-label">Office Email</label>
+                      <a href="mailto:tusharpuri101@gmail.com" className="contact-info-value">tusharpuri101@gmail.com</a>
+                    </div>
+
+                    <div className="contact-info-item">
+                      <label className="contact-info-label">Address</label>
+                      <p className="contact-info-value">F-26, Above Reliance Digital, TopTen Imperial, Sangamner</p>
+                      <a href="https://maps.app.goo.gl/zwtf6jMExqSfQfnPA?g_st=ic" target="_blank" rel="noopener noreferrer" className="contact-map-link">
+                        📍 View on Map
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Column - Contact Form */}
+                <div className="contact-column contact-form-column">
+                  <form className="contact-form">
+                    <div className="form-field">
+                      <label htmlFor="contactName" className="form-label">Your Name</label>
+                      <input type="text" id="contactName" name="contactName" placeholder="Enter your full name" required />
+                    </div>
+
+                    <div className="form-field">
+                      <label htmlFor="brandName" className="form-label">Your Brand Name</label>
+                      <input type="text" id="brandName" name="brandName" placeholder="Enter your brand or company name" required />
+                    </div>
+
+                    <div className="form-field">
+                      <label htmlFor="contactPhone" className="form-label">Phone Number</label>
+                      <input type="tel" id="contactPhone" name="contactPhone" placeholder="Enter your phone number" required />
+                    </div>
+                  
+                    <button type="submit" className="contact-submit-btn">
+                      <span>Send Message</span>
+                      <img 
+                        src="/assets/arrow.png" 
+                        alt="" 
+                        className="arrow-indicator button-arrow"
+                        width="18"
+                        height="18"
+                        loading="eager"
+                        aria-hidden="true"
+                      />
+                    </button>
+                  </form>
+                </div>
+              </div>
             </div>
           </section>
         </div>

@@ -1,0 +1,3 @@
+- [ ] Update gallery section in App.jsx to display images from /public/assets/gallery
+- [ ] Add CSS styles for gallery layout in App.css
+- [ ] Test the gallery section to ensure images display correctly
