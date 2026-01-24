@@ -504,9 +504,9 @@ function App() {
                   <br />
                   Founded in 2020 by Tushar Puri, we bring 6+ years of industry experience with one clear focus
                   <br />
-                   — results that grow your business with creators, companies.                                   
-                 
-                 </h1>
+                  — results that grow your business with creators, companies.
+
+                </h1>
               </div>
               <div className="info-icons content-block">
                 <div className="info-icon" aria-hidden>
@@ -525,25 +525,56 @@ function App() {
             </div>
           </section>
 
-          <section id="services" className="snap-section info-section about-section" ref={(el) => setSectionRef(2, el)}>
-            <div className="section-inner panel-content about-layout">
-              <div className="about-copy content-block">
-                <h2>Our mission is to shape narratives that spark movements.</h2>
-                <p>We believe creators are the new media. And we know how to use that power to grow businesses that matter.</p>
-              </div>
-              <div className="about-card content-block" aria-hidden>
-                <div className="about-card-media">
-                  <div className="about-play">▶</div>
+          <section
+            id="services"
+            className="snap-section info-section services-section"
+            ref={(el) => setSectionRef(2, el)}
+          >
+            <div className="section-inner">
+              <div className="expertise-section">
+
+                <div className="expertise-header">
+                  <h2 className="expertise-title">
+                    Our Expertise
+                  </h2>
                 </div>
-                <div className="about-card-meta">
-                  <div className="about-heart">❤</div>
-                  <span>1.1M</span>
+
+                {/* SERVICES MINIMAL LAYOUT */}
+                <div className="services-container">
+                  {[
+                    {
+                      icon: "📈",
+                      title: "Digital Marketing",
+                      text: "Custom strategies that strengthen brand presence and drive growth"
+                    },
+                    {
+                      icon: "📊",
+                      title: "Performance Marketing",
+                      text: "ROI-driven campaigns engineered for maximum conversions"
+                    },
+                    {
+                      icon: "🎥",
+                      title: "Video Production",
+                      text: "Visually compelling stories that elevate engagement and impact"
+                    },
+                    {
+                      icon: "✍️",
+                      title: "Content Creation",
+                      text: "Strategic content designed to connect and convert effectively"
+                    }
+                  ].map((item, i) => (
+                    <div key={i} className="service-item">
+                      <div className="service-icon">{item.icon}</div>
+                      <h3 className="service-title">{item.title}</h3>
+                      <p className="service-description">{item.text}</p>
+                    </div>
+                  ))}
                 </div>
-                <div className="about-card-title">Reach masses</div>
-                <div className="about-card-tag">#socialtag</div>
+
               </div>
             </div>
           </section>
+
 
           <section id="why" className="snap-section info-section why-section" ref={(el) => setSectionRef(3, el)}>
             <div className="section-inner panel-content">
@@ -601,9 +632,9 @@ function App() {
                   <h2 className="gallery-title">GALLERY</h2>
                   <div className="gallery-next-wrapper">
                     <span className="gallery-next-label">Next</span>
-                    <img 
-                      src="/assets/arrow.png" 
-                      alt="scroll right" 
+                    <img
+                      src="/assets/arrow.png"
+                      alt="scroll right"
                       className="arrow-indicator gallery-arrow"
                       width="24"
                       height="24"
@@ -615,7 +646,7 @@ function App() {
                   <div className="gallery-grid">
                     {TALENT_DATA.map((talent, index) => (
                       <div key={talent.id} className="gallery-tile">
-                        <img 
+                        <img
                           src={`/assets/gallery/${talent.image}`}
                           alt={`${talent.name} - Talent Network`}
                           className="gallery-image"
@@ -637,7 +668,7 @@ function App() {
               <div className="contact-header">
                 <h2 className="contact-title">Contact Us</h2>
                 <p className="contact-subtitle">Get in Touch</p>
-               </div>
+              </div>
               <div className="contact-content-wrapper">
                 {/* Left Column - Contact Details */}
                 <div className="contact-column contact-details-column">
@@ -679,12 +710,12 @@ function App() {
                       <label htmlFor="contactPhone" className="form-label">Phone Number</label>
                       <input type="tel" id="contactPhone" name="contactPhone" placeholder="Enter your phone number" required />
                     </div>
-                  
+
                     <button type="submit" className="contact-submit-btn">
                       <span>Send Message</span>
-                      <img 
-                        src="/assets/arrow.png" 
-                        alt="" 
+                      <img
+                        src="/assets/arrow.png"
+                        alt=""
                         className="arrow-indicator button-arrow"
                         width="18"
                         height="18"

@@ -1,3 +1,4 @@
-- [ ] Update gallery section in App.jsx to display images from /public/assets/gallery
-- [ ] Add CSS styles for gallery layout in App.css
-- [ ] Test the gallery section to ensure images display correctly
+- [ ] Adjust CSS layouts for smaller screens (grids, sections, components)
+- [x] Improve touch interactions (button sizes, touch targets)
+- [ ] Optimize component sizes and spacing for mobile
+- [ ] Test mobile responsiveness

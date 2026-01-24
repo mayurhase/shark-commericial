@@ -653,6 +653,191 @@ select {
   color: rgba(255, 255, 255, 0.5);
 }
 
+/* Services / Expertise Section Styles */
+.services-section {
+  position: relative;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(0, 10, 20, 0.5) 0%, rgba(5, 20, 35, 0.3) 100%);
+}
+
+.services-section .section-inner {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.expertise-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
+  padding: 6rem var(--section-pad-x) 5rem;
+}
+
+/* Header with dominant title */
+.expertise-header {
+  text-align: center;
+  width: 100%;
+  max-width: 900px;
+}
+
+.expertise-title {
+  font-size: clamp(44px, 6vw, 72px);
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Services container - centered, flexible layout */
+.services-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3rem 2.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Individual service item - minimal, clean */
+.service-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  text-align: center;
+  transition: all 300ms ease;
+}
+
+.service-item:hover {
+  transform: translateY(-4px);
+}
+
+/* Icon - minimal, no background */
+.service-icon {
+  font-size: 3.5rem;
+  line-height: 1;
+  transition: all 300ms ease;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0));
+}
+
+.service-item:hover .service-icon {
+  font-size: 3.8rem;
+  opacity: 1;
+  filter: drop-shadow(0 0 30px rgba(0, 240, 255, 0.3));
+}
+
+/* Service title - bold, clean */
+.service-title {
+  font-size: clamp(18px, 2.2vw, 24px);
+  font-weight: 600;
+  margin: 0;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  transition: all 300ms ease;
+}
+
+.service-item:hover .service-title {
+  color: #ffffff;
+  opacity: 1;
+}
+
+/* Service description - supporting text */
+.service-description {
+  font-size: clamp(13px, 1.6vw, 16px);
+  line-height: 1.6;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.65);
+  transition: all 300ms ease;
+}
+
+.service-item:hover .service-description {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* CTA Button - minimal, premium */
+.expertise-button {
+  margin-top: 1rem;
+  padding: 0.95rem 2.5rem;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  color: #ffffff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 300ms ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.expertise-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  transition: left 300ms ease;
+}
+
+.expertise-button:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.15);
+}
+
+.expertise-button:hover::before {
+  left: 100%;
+}
+
+/* Tablet - 2 columns */
+@media (max-width: 1200px) {
+  .services-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem 2rem;
+    padding: 0 1.5rem;
+  }
+  
+  .expertise-section {
+    gap: 3.5rem;
+    padding: 5rem var(--section-pad-x) 4rem;
+  }
+}
+
+/* Mobile - 1 column */
+@media (max-width: 768px) {
+  .services-container {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding: 0 1rem;
+  }
+  
+  .expertise-section {
+    gap: 3rem;
+    padding: 4rem var(--section-pad-x) 3rem;
+  }
+  
+  .expertise-title {
+    font-size: clamp(32px, 8vw, 48px);
+  }
+}
+
 .brands-section {
   position: relative;
   padding: 0;
@@ -1001,6 +1186,312 @@ select {
 
   .submit-btn {
     width: 100%;
+  }
+
+  /* Improve touch targets for mobile */
+  button, .section-nav-button, .menu, input, textarea, select {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .section-nav-button {
+    width: 60px;
+    height: 60px;
+  }
+
+  .section-nav-button img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .menu {
+    width: 50px;
+    height: 50px;
+  }
+
+  /* Adjust top bar for mobile */
+  .top-bar {
+    top: 16px;
+    left: 16px;
+    right: 16px;
+  }
+
+  .brand-logo {
+    width: auto;
+    height: 48px;
+    max-width: 200px;
+  }
+
+  /* Section navigation adjustments */
+  .section-nav {
+    right: 16px;
+    top: 50%;
+    gap: 12px;
+  }
+
+  .section-label {
+    right: 16px;
+    bottom: 16px;
+  }
+
+  /* Hero section mobile adjustments */
+  .hero {
+    padding: 0 20px;
+    gap: 24px;
+  }
+
+  .hero h1 {
+    font-size: clamp(32px, 12vw, 60px);
+  }
+
+  .hero p {
+    font-size: clamp(14px, 4vw, 20px);
+  }
+
+  /* Info sections mobile */
+  .info-section {
+    padding: 40px 20px;
+    gap: 20px;
+  }
+
+  .info-copy h1 {
+    font-size: clamp(14px, 4vw, 24px);
+  }
+
+  .info-icons {
+    transform: translateY(40px);
+  }
+
+  .info-icon {
+    width: 120px;
+    height: 120px;
+  }
+
+  .info-icon img {
+    width: 80px;
+    height: 80px;
+  }
+
+  /* Services section mobile */
+  .services-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 0 1rem;
+  }
+
+  .expertise-section {
+    gap: 2.5rem;
+    padding: 3rem 20px 2rem;
+  }
+
+  .expertise-title {
+    font-size: clamp(28px, 8vw, 40px);
+  }
+
+  .service-item {
+    gap: 1rem;
+  }
+
+  .service-icon {
+    font-size: 3rem;
+  }
+
+  .service-title {
+    font-size: clamp(16px, 4vw, 20px);
+  }
+
+  .service-description {
+    font-size: clamp(12px, 3vw, 14px);
+  }
+
+  /* Why section mobile */
+  .why-cards-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 20px;
+  }
+
+  .why-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .why-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .why-card-icon {
+    font-size: 2rem;
+    width: 50px;
+    height: 50px;
+  }
+
+  .why-card-title {
+    font-size: 1rem;
+  }
+
+  .why-card-text {
+    font-size: 0.8rem;
+  }
+
+  /* Brands section mobile */
+  .brands-layout {
+    width: min(480px, 90vw);
+    padding: 0 20px;
+  }
+
+  .brands-title {
+    font-size: clamp(16px, 4vw, 20px);
+  }
+
+  .brand-tile {
+    min-width: 80px;
+  }
+
+  .brand-logo {
+    height: 36px;
+    padding: 0 12px;
+    font-size: 16px;
+  }
+
+  /* Gallery section mobile */
+  .gallery-container {
+    padding: 0 20px;
+  }
+
+  .gallery-title {
+    font-size: 1.8rem;
+  }
+
+  .gallery-next-label {
+    font-size: 0.7rem;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(8, 120px);
+    grid-template-rows: 120px;
+    gap: 0.8rem;
+    grid-auto-columns: 120px;
+  }
+
+  .gallery-tile {
+    width: 120px;
+    height: 120px;
+  }
+
+  /* Contact section mobile */
+  .contact-header {
+    margin-bottom: 2rem;
+    padding: 0 20px;
+  }
+
+  .contact-title {
+    font-size: 1.8rem;
+  }
+
+  .contact-subtitle {
+    font-size: 1rem;
+  }
+
+  .contact-content-wrapper {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 0 20px;
+  }
+
+  .contact-details-card,
+  .contact-form {
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .contact-info-item {
+    gap: 0.5rem;
+  }
+
+  .contact-info-label {
+    font-size: 0.65rem;
+  }
+
+  .contact-info-value {
+    font-size: 0.9rem;
+  }
+
+  .form-field {
+    gap: 0.5rem;
+  }
+
+  .form-label {
+    font-size: 0.75rem;
+  }
+
+  .contact-form input {
+    padding: 0.75rem 0.875rem;
+    font-size: 0.95rem;
+  }
+
+  .contact-submit-btn {
+    min-width: 140px;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Extra small mobile */
+@media (max-width: 480px) {
+  .hero {
+    padding: 0 16px;
+    gap: 20px;
+  }
+
+  .hero h1 {
+    font-size: clamp(28px, 14vw, 50px);
+  }
+
+  .hero p {
+    font-size: clamp(12px, 5vw, 18px);
+  }
+
+  .info-section {
+    padding: 30px 16px;
+  }
+
+  .expertise-section {
+    padding: 2rem 16px 1.5rem;
+  }
+
+  .why-cards-container {
+    padding: 0 16px;
+  }
+
+  .brands-layout {
+    width: min(400px, 95vw);
+    padding: 0 16px;
+  }
+
+  .gallery-container {
+    padding: 0 16px;
+  }
+
+  .contact-content-wrapper {
+    padding: 0 16px;
+  }
+
+  .contact-details-card,
+  .contact-form {
+    padding: 1.25rem;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(6, 100px);
+    grid-template-rows: 100px;
+    gap: 0.6rem;
+    grid-auto-columns: 100px;
+  }
+
+  .gallery-tile {
+    width: 100px;
+    height: 100px;
   }
 }
 
