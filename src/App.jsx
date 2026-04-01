@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
+import { Analytics } from '@vercel/analytics/react'
 import './App.css'
 
 const TARGET_CELL_SIZE = 120
@@ -846,9 +847,9 @@ const pickRandomColor = () => PASTEL_COLORS[Math.floor(Math.random() * PASTEL_CO
 
         <div className="section-label content-block">{SECTIONS[currentSectionIndex]}</div>
       </div>
+      <Analytics />
     </div>
   )
 }
 
 export default App
-
